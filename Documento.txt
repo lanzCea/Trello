@@ -1,0 +1,4 @@
+npx create-expo-app@latest TrelloRealm --template blank-typescript
+npx expo install expo-dev-client
+buildType
+eas build --profile development --platform android
