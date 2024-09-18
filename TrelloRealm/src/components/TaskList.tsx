@@ -11,8 +11,8 @@ import { useState } from "react";
 
 export default function TaskList() {
   const [tasks, setTask] = useState([
-    { description: "First Task" },
-    { description: "Second Task" },
+    { id: "123", description: "First Task" },
+    { id: "67", description: "Second Task" },
     // { description: "third Task" },
   ]);
 
