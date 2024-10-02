@@ -23,7 +23,8 @@ export default function TaskListItem({
 }) {
   const realm = useRealm();
 
-  const { setDraggingTask, dragY, draggingTaskId } = useDraggingContext();
+  const { setDraggingTask, dragY, draggingTaskId, dragOffsetY } =
+    useDraggingContext();
 
   const marginTop = useSharedValue(0);
 
@@ -33,12 +34,13 @@ export default function TaskListItem({
       if (!newDragY) {
         marginTop.value = 0;
       }
-      const itemY = index * ItemHeight + 73;
+      const itemY = index * ItemHeight + 73 - dragOffsetY.value;
 
       // if it's above the first item
       if (index === 0 && newDragY < itemY + ItemHeight) {
         marginTop.value = withTiming(ItemHeight);
       }
+
       // if it's on top of the current item
       // TODO: keep track of the currently dragging item, and offset the comparison, becuase it is deleted form the lists
       marginTop.value = withTiming(
@@ -58,6 +60,7 @@ export default function TaskListItem({
       marginTop.value = 0;
     }
   }, [draggingTaskId]);
+
   const deleteTask = () => {
     realm.write(() => {
       realm.delete(task);
