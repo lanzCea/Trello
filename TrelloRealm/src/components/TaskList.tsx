@@ -17,6 +17,7 @@ export default function TaskList() {
   const user = useUser();
 
   const maxPosition = (useQuery(Task).max("position") as number) || 0;
+
   const [newTask, setNewTask] = useState("");
 
   const createTask = () => {
@@ -38,8 +39,14 @@ export default function TaskList() {
       {/* The list of tasks */}
       <FlatList
         data={tasks}
-        contentContainerStyle={{ gap: 5 }}
-        renderItem={({ item }) => <TaskListItem task={item} />}
+        renderItem={({ item, index }) => (
+          <TaskListItem task={item} index={index} />
+        )}
+        // CellRendererComponent={({ children, index }) => (
+        //   <View onLayout={(event) => console.log(event.nativeEvent.layout)}>
+        //     {children}
+        //   </View>
+        // )}
       />
 
       {/* New task input */}
